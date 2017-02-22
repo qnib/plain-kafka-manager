@@ -11,4 +11,6 @@ ADD opt/qnib/kafka/manager/bin/start.sh \
     /opt/qnib/kafka/manager/bin/
 ADD opt/qnib/entry/30-kafka-manager.sh \
     /opt/qnib/entry/
+ADD opt/qnib/kafka/manager/conf/application.conf \
+    /opt/qnib/kafka/manager/conf/
 CMD ["/opt/qnib/kafka/manager/bin/start.sh"]
