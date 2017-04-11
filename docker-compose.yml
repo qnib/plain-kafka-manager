@@ -1,0 +1,73 @@
+version: '3'
+services:
+  zookeeper:
+    image: qnib/plain-zookeeper
+    ports:
+      - "2181:2181"
+    deploy:
+      resources:
+        # Only one master for now
+        replicas: 1
+        limits:
+          cpus: '1'
+          memory: 512M
+      update_config:
+        parallelism: 1
+        delay: 15s
+      restart_policy:
+        condition: on-failure
+  zkui:
+    image: qnib/plain-zkui
+    ports:
+      - "9090:9090"
+    environment:
+      ZK_SERVER: "kafka_zookeeper"
+    deploy:
+      resources:
+        # Only one master for now
+        replicas: 1
+        limits:
+          cpus: '1'
+          memory: 512M
+      update_config:
+        parallelism: 1
+        delay: 15s
+      restart_policy:
+        condition: on-failure
+  broker:
+    image: qnib/plain-kafka
+    ports:
+      - "9092:9092"
+    deploy:
+      resources:
+        # Only one master for now
+        replicas: 1
+        limits:
+          cpus: '1'
+          memory: 768M
+      update_config:
+        parallelism: 1
+        delay: 15s
+      restart_policy:
+        condition: on-failure
+    environment:
+      SWARM_TASK_ID: '{{.Task.Slot}}'
+      ZK_SERVERS: "kafka_zookeeper"
+  manager:
+    image: qnib/plain-kafka-manager
+    ports:
+      - "9000:9000"
+    environment:
+      ZK_SERVER: "kafka_zookeeper:2181"
+    deploy:
+      resources:
+        # Only one master for now
+        replicas: 1
+        limits:
+          cpus: '1'
+          memory: 512M
+      update_config:
+        parallelism: 1
+        delay: 15s
+      restart_policy:
+        condition: on-failure

@@ -1,5 +1,4 @@
 #!/bin/bash
 
-cd /usr/share/kafka-manager/
+cd /opt/kafka-manager/
 ./bin/kafka-manager -Dconfig.file=./conf/application.conf
-
