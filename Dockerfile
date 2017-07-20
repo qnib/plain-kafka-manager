@@ -1,7 +1,8 @@
 FROM qnib/alplain-openjre8
 
 ARG KM_VER=1.3.3.4
-ENV ZOOKEEPER_HOSTS=localhost
+ENV ZOOKEEPER_HOSTS=localhost \
+    ENTRYPOINTS_DIR=/opt/qnib/entry
 
 RUN apk --no-cache add wget nmap \
  && wget -qO /tmp/kafka-manager.zip https://github.com/qnib/kafka-manager/releases/download/${KM_VER}/kafka-manager-${KM_VER}.zip \
