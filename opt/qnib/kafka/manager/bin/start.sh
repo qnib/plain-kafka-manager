@@ -1,4 +1,5 @@
 #!/bin/bash
 
 cd /opt/kafka-manager/
-./bin/kafka-manager -Dconfig.file=./conf/application.conf
+java -Dconfig.file=./conf/application.conf \
+     -jar /opt/kafka-manager/kafka-manager-assembly.jar
