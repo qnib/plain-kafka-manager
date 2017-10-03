@@ -9,7 +9,8 @@ services:
     ports:
       - "9090:9090"
   broker:
-    image: qnib/plain-kafka:0.11.0.0
+    image: qnib/plain-kafka:0.10.2.1
+    hostname: "{{.Service.Name}}.{{.Task.Slot}}.{{.Task.ID}}"
     ports:
       - "9092:9092"
     environment:
