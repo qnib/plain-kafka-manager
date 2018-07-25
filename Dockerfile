@@ -6,7 +6,7 @@ ARG DOCKER2_IMG_TAG=":2018-04-25_0.3.0"
 ARG DOCKER2_IMG_HASH="@sha256:bac2b14174d7908eb94f6b4d247ff765d0488397227a8a17e3ebeac6ce3d5d18"
 FROM ${DOCKER_REGISTRY}/qnib/${DOCKER_IMAGE_NAME}${DOCKER_IMG_TAG}${DOCKER_IMG_HASH} AS build
 
-ARG KM_VER=1.3.3.17
+ARG KM_VER=1.3.3.18
 ARG SCALA_VER=2.11
 RUN apk --no-cache add wget \
  && wget -qO- https://github.com/yahoo/kafka-manager/archive/${KM_VER}.tar.gz |tar xfz - -C /opt/ \
@@ -15,7 +15,7 @@ RUN cd /opt/kafka-manager/ \
  && sbt 'set test in assembly := {}' clean assembly
 
 FROM ${DOCKER_REGISTRY}/qnib/alplain-openjre8-prometheus${DOCKER2_IMG_TAG}${DOCKER2_IMG_HASH}
-ARG KM_VER=1.3.3.17
+ARG KM_VER=1.3.3.18
 ARG SCALA_VER=2.11
 LABEL kafka-manager.version=${SCALA_VER}-${KM_VER}
 ENV ZOOKEEPER_HOSTS=localhost \
