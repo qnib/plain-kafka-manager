@@ -1,4 +1,15 @@
-version: '3'
+---
+version: 1.3.3.18-1
+name: kafka-manager
+description: "Kafka stack with kafka-manager"
+maintainers:
+- name: Christian Kniep
+  email: christian@qnib.org
+targets:
+  swarm: true
+  kubernetes: false
+---
+version: '3.6'
 services:
   zookeeper:
     image: qnib/plain-zookeeper
@@ -16,8 +27,9 @@ services:
     environment:
       KAFKA_BROKER_ID: '{{.Task.Slot}}'
   manager:
-    image: qnib/plain-kafka-manager:2018-04-25
+    image: qnib/plain-kafka-manager:1.3.3.18-1
     ports:
       - "9000:9000"
     environment:
       ZOOKEEPER_HOSTS: "tasks.zookeeper:2181"
+---
